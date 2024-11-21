@@ -3,7 +3,7 @@
 This website is designed for football fans. It provides scores, standings and also recent news from football world. In provided database ony 5 leagues are present but you can easly add other.
 
 ## Distinctiveness and Complexity
-This project integrates features like interactive functionality, dynamic page generation, and external API integration. By combining user interactivity, advanced backend logic, and dynamic content, this project offers a feature-rich, personalized platform for football fans.
+This project integrates features like interactive functionality, dynamic page generation, and external API integration, also it is moblie responsive. By combining user interactivity, advanced backend logic, and dynamic content, this project offers a feature-rich, personalized platform for football fans.
 This project integrates a third-party API to populate and maintain a live database of leagues, teams, and matches. Intuitive navigation (clicking team and beeing redirected to its page) makes moving around site easy. This project combines a lot of things that i have learned over cs50 web course and extends it.
 
 
