@@ -11,20 +11,32 @@ export function loadMatchByDate(match_date){
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("matches");
+      let no_matches = true;
       for (const league in data.matches) {
-        let no_matches = true;
+        
         if(data.matches[league].length > 0){
           no_matches = false;
-          const node = document.createElement("h3");
-          node.style.marginLeft = "60px";
-          node.style.marginTop = "20px";
-          node.textContent = league;
-          container.appendChild(node);
+          // adding league header
+          const league_header = document.createElement("div")
+          league_header.style.display = "flex";
+          const league_text = document.createElement("h4");
+          league_text.style.marginLeft = "20px";
+          league_text.style.marginTop = "30px";
+          league_text.textContent = league;
+          const img = document.createElement("img");
+          img.src = data.leagues[league].logo_link;
+          img.classList.add("league_logo");
+          league_header.appendChild(img);
+          league_header.appendChild(league_text);
+          container.appendChild(league_header);
+          
+          // render matches
           renderMatchesFromTemplate(data.matches[league]);
         }
-        if(no_matches){
-          container.innerHTML = "<h3>No matches were played on this day</h3>"
-        }
+        
+      }
+      if(no_matches){
+        container.innerHTML = "<h3>No matches were played on this day</h3>"
       }
       
       

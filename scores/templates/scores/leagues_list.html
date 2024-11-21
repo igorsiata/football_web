@@ -1,0 +1,15 @@
+{% extends "scores/layout.html" %} {% load static %} {% block body %}
+
+<h1>All Leagues</h1>
+<hr>
+<div id="leagues_list">
+    {% for league in leagues%}
+    <div class="league_li">
+        <img src={{league.logo_link}}>
+        <a href="{%url 'league_page' league.code%}">{{league.name}}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} {% block script %}
+
+{% endblock %}

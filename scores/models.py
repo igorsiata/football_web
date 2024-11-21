@@ -56,6 +56,15 @@ class League(models.Model):
     teams = models.ManyToManyField(Team, related_name="leagues")
     api_id = models.IntegerField(blank=True, null=True)
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "code": self.code,
+            "logo_link": self.logo_link,
+            "api_id": self.api_id,
+        }
+
 
 class Standings(models.Model):
     league = models.ForeignKey(
@@ -73,6 +82,19 @@ class Standings(models.Model):
     goals_scored = models.IntegerField(default=0)
     goals_conceded = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
+
+    def serialize(self):
+        return {
+            "league": self.league.name,
+            "team": self.team.serialize(),
+            "games_played": self.games_played,
+            "wins": self.wins,
+            "losses": self.losses,
+            "draws": self.draws,
+            "golas_scored": self.goals_scored,
+            "goals_conceded": self.goals_conceded,
+            "points": self.points
+        }
 
     class Meta:
         unique_together = ("league", "team")

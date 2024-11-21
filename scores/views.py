@@ -80,13 +80,14 @@ def news(request):
 
 
 def results(request):
-    matches_list = Match.objects.filter(
-        date__lt=date.today()).order_by('-date')
     return render(request, "scores/results.html")
 
 
-def upcoming(request):
-    return render(request, "scores/home.html")
+def leagues(request):
+    leagues = League.objects.all()
+    return render(request, "scores/leagues_list.html", {
+        "leagues": leagues
+    })
 
 
 def load_news(request, page_num=1):
@@ -160,12 +161,23 @@ def load_matches(request):
         matches = Match.objects.filter(date__date=parse_date(match_date))
         matches_by_league = {}
         response_data = {
-            "matches": {}
+            "matches": {},
+            "leagues": {}
         }
         for league in League.objects.all():
             matches_by_league[league.name] = matches.filter(
                 league=league)
             response_data["matches"][league.name] = [
                 match.serialize() for match in matches_by_league[league.name]]
-        print(response_data)
+            response_data["leagues"][league.name] = league.serialize()
     return JsonResponse(response_data, safe=False, status=201)
+
+
+def league_page(request, league_code):
+    league = League.objects.get(code=league_code)
+    standings = [
+        team.serialize for team in Standings.objects.filter(league=league).order_by("-points")]
+    return render(request, "scores/league_page.html", {
+        "league": league.serialize(),
+        'standings': standings
+    })
