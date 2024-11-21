@@ -6,12 +6,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db import IntegrityError
 from django.db.models import ObjectDoesNotExist
-import requests
 from django.core.paginator import Paginator
 from markdown2 import Markdown
 from datetime import date, datetime, timedelta
 from django.db.models import Q
 from django.utils.dateparse import parse_date
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import *
@@ -141,22 +142,31 @@ def view_news(request, news_id):
 
 def team_page(request, team_id):
     team = Team.objects.get(id=team_id)
+    is_followed = team in request.user.followed_teams.all()
     return render(request, "scores/team_page.html", {
-        'team': team
+        'team': team,
+        "is_followed": is_followed
     })
 
 
 def load_matches(request):
     id = request.GET.get('id', None)
     match_date = request.GET.get('date', None)
+    max_num = request.GET.get('max', None)
     if id is not None:
         team = Team.objects.get(id=id)
         next_week = datetime.now() + timedelta(days=7)
         matches = Match.objects.filter(
             Q(home_team=team) | Q(away_team=team)).filter(date__lte=next_week).order_by("-date")
-        response_data = {
-            "matches": [match.serialize() for match in matches]
-        }
+        if max_num is not None:
+            max_num = int(max_num)
+            response_data = {
+                "matches": [match.serialize() for match in matches][:max_num]
+            }
+        else:
+            response_data = {
+                "matches": [match.serialize() for match in matches]
+            }
     if match_date is not None:
         matches = Match.objects.filter(date__date=parse_date(match_date))
         matches_by_league = {}
@@ -181,3 +191,48 @@ def league_page(request, league_code):
         "league": league.serialize(),
         'standings': standings
     })
+
+
+def profile(request):
+    followed_teams = [team.serialize()
+                      for team in request.user.followed_teams.all()]
+    return render(request, "scores/profile.html", {
+        "followed_teams": followed_teams
+    })
+
+
+@login_required
+@csrf_protect
+def toggle_follow(request, team_id):
+    try:
+        team_to_follow = Team.objects.get(id=team_id)
+    except Team.DoesNotExist:
+        return JsonResponse({"error": "team not found"}, status=404)
+    if request.method == 'PUT':
+        if team_to_follow not in request.user.followed_teams.all():
+            request.user.followed_teams.add(team_to_follow)
+            return JsonResponse({"status": "followed"}, status=200)
+        else:
+            request.user.followed_teams.remove(team_to_follow)
+            return JsonResponse({"status": "unfollowed"}, status=200)
+    return JsonResponse({"error": "invalid method"}, status=405)
+
+
+def search(request):
+    if request.method == "POST":
+
+        query = request.POST["search_query"]
+        results_teams = []
+        results_leagues = []
+        print(query)
+        for team in Team.objects.all():
+            if query.lower() in team.name.lower():
+                results_teams.append(team.serialize())
+        for league in League.objects.all():
+            if query.lower() in league.name.lower():
+                results_leagues.append(league.serialize())
+        return render(request, "scores/search_results.html", {
+            "query": query,
+            "teams": results_teams,
+            "leagues": results_leagues
+        })

@@ -1,6 +1,10 @@
 {% extends "scores/layout.html" %} {% load static %} {% block body %}
 {%csrf_token %}
-<div id="scores"></div>
+<div id="home_page">
+    <h1>Football daily</h1>
+    <h3>Your Teams. Your Matches. Your Passion.</h3>
+    <img src="{% static 'scores/media/big_logo.webp' %}">
+</div>
 {% endblock %} {% block script %}
 
 <script src="{% static 'scores/scripts/home.js' %}"></script>

@@ -1,10 +1,18 @@
 {% extends "scores/layout.html" %} {%load static %} {% block body %}
 {% include "scores\match_template.html" %}
-<div id="team_page">
+{% csrf_token %}
+<div id="team_page" data-team-id="{{ team.id }}">
   <img src="{{team.logo}}" />
   <div id="team_info">
     <h1>{{team.name}} ({{team.tla}})</h1>
     <p>Stadium: {{team.stadium}}</p>
+    <button class="btn btn-primary">
+      {% if is_followed %}
+      Unfollow
+      {% else %}
+      Follow
+      {% endif %}
+    </button>
   </div>
 
 </div>

@@ -1,0 +1,29 @@
+{% extends "scores/layout.html" %} {%load static %}
+{% block body %}
+{% csrf_token %}
+{% include "scores/match_template.html" %}
+
+<h1>{{user.username}}</h1>
+<hr>
+<h3>Followed teams</h3>
+{% for team in followed_teams %}
+<div class="prof_team_page" data-team-id="{{ team.id }}">
+    <div class="prof_team_info">
+        <img src="{{team.logo}}" />
+        <a href="{% url 'team_page' team.id%}">{{team.name}} ({{team.tla}})</a>
+        <button class="btn btn-primary">
+            Unfollow
+        </button>
+    </div>
+    <div class="prof_team_matches"></div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %} {% block script %}
+<script type="module" src="{% static 'scores/scripts/profilePage.js' %}"></script>
+<script type="module" src="{% static 'scores/scripts/loadMatch.js' %}"></script>
+
+
+{% endblock %}

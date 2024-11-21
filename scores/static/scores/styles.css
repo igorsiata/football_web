@@ -102,9 +102,9 @@
     width: fit-content;
     height: fit-content;
     padding: 10px;
-    margin-top: 10px;
-    margin-left: 60px;
-    width: 400px;
+    margin: 5px auto;
+    max-width: 400px;
+    min-width: 90vw;
 }
 
 .match_outcome_container {
@@ -141,13 +141,11 @@ button[disabled] {
 .league_logo {
     width: 50px;
     height: 50px;
-    margin-left: 60px;
-    margin-top: 20px;
 }
 
 .league_li {
     margin-top: 40px;
-    margin-left: 40px;
+    margin-left: auto;
 }
 
 .league_li>img {
@@ -156,9 +154,11 @@ button[disabled] {
 }
 
 .league_li>a {
-    margin-left: 20px;
+    margin-left: 5px;
     font-size: 36px;
+    font-size: 5vw;
     color: black;
+    margin: auto 10px;
     font-weight: 600;
 }
 
@@ -185,4 +185,38 @@ button[disabled] {
 .team_standing>a {
     color: black;
     font-weight: 600;
+}
+
+.prof_team_info {
+    display: flex;
+    margin: 0px auto;
+    margin-top: 40px;
+}
+
+.prof_team_info>a {
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px
+}
+
+.prof_team_info>img {
+    width: 60px;
+    height: 60px;
+}
+
+.prof_team_info>button {
+    margin: auto 10px;
+}
+
+#home_page>img {
+    margin: 10px auto;
+    width: 90vw;
+    height: auto;
+}
+
+#home_page>h3 {
+    font-style: italic;
+    color: gray;
 }

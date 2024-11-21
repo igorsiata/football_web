@@ -5,8 +5,6 @@ from .utils import update_standings
 
 class User(AbstractUser):
     can_edit = models.BooleanField(default=False)
-    followed_leagues = models.ManyToManyField(
-        'League', related_name="followers")
     followed_teams = models.ManyToManyField('Team', related_name="followers")
 
 

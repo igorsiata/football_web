@@ -27,7 +27,7 @@ def populate_teams():
                 date = match['utcDate']
                 score_home = match['score']['fullTime']['home']
                 score_away = match['score']['fullTime']['away']
-                match_to_save = Match(
+                match_to_save, created = Match.objects.get_or_create(
                     home_team=Team.objects.get(api_id=home_team),
                     away_team=Team.objects.get(api_id=away_team),
                     score_home=score_home,
@@ -35,8 +35,16 @@ def populate_teams():
                     league=league,
                     date=date
                 )
-                match_to_save.save()
-                print(f"Match {match_to_save} saved to the database.")
+                if created:
+                    print(f"Match {match_to_save} saved to the database.")
+                elif (match_to_save.score_away == None or match_to_save == None) and score_home != None and score_away != None:
+                    match_to_save.score_away = score_away
+                    match_to_save.score_home = score_home
+                    print(
+                        f"Match {match_to_save} updated")
+                else:
+                    print(
+                        f"Match {match_to_save} aleready exists in database.")
         else:
             print(f"Failed to retrieve league{league}. Status code: {
                 response.status_code}")
