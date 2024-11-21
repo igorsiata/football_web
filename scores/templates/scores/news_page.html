@@ -1,0 +1,10 @@
+{% extends "scores/layout.html" %} {% load static %} {% block body %}
+<div id="news_page">
+  {% if user.can_edit%}
+  <!--<a href="{%url 'add_news' %}">Edit</a>-->
+  {% endif %}
+  <h1>{{ title }}</h1>
+  <hr />
+  <div id="news_body">{{ body|safe }}</div>
+</div>
+{% endblock %} {% block script %} {% endblock %}

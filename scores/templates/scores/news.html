@@ -1,0 +1,23 @@
+{% extends "scores/layout.html" %} {% load static %} {% block body %}
+<template id="news_template">
+  <div class="news_header">
+    <a class="news_title" href="#"></a>
+    <p class="date"></p>
+    <img class="news_header_image" src="#" alt="News image" />
+  </div>
+</template>
+<div id="news_list">
+  <h1 id="news_title_page">News</h1>
+  {% if user.can_edit%}
+  <a href="{%url 'add_news' %}">Add news</a>
+  {% endif %}
+  <div id="news_posts"></div>
+  <button id="load_button" class="btn btn-secondary">Load more news</button>
+  <h6 id="end_page">Sorry, no more news left. Come back tommorw.</h6>
+</div>
+
+{% endblock %} {% block script %}
+
+<script src="{% static 'scores/news.js' %}"></script>
+
+{% endblock %}

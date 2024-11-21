@@ -1,0 +1,8 @@
+{% extends "scores/layout.html" %} {% load static %} {% block body %}
+{%csrf_token %}
+<div id="scores"></div>
+{% endblock %} {% block script %}
+
+<script src="{% static 'scores/home.js' %}"></script>
+
+{% endblock %}

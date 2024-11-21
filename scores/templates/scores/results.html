@@ -1,0 +1,19 @@
+{% extends "scores/layout.html" %} {% load static %} {% block body %}
+{% include "scores\match_template.html" %}
+<h1>All Results</h1>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary" id="prev_day">&laquo;</button>
+  <button type="button" class="btn btn-primary disabled" disabled id="curr_day">11-11-2021</button>
+  <button type="button" class="btn btn-primary" id="next_day">&raquo;</button>
+</div>
+<hr>
+<div id="matches"></div>
+{% endblock %} {% block script %}
+
+
+
+<script type="module" src="{% static 'scores/loadMatch.js' %}"></script>
+<script type="module" src="{% static 'scores/results.js' %}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "scores/layout.html" %} {%load static %} {% block body %}
+{% include "scores\match_template.html" %}
+<div id="team_page">
+  <img src="{{team.logo}}" />
+  <div id="team_info">
+    <h1>{{team.name}} ({{team.tla}})</h1>
+    <p>Stadium: {{team.stadium}}</p>
+  </div>
+
+</div>
+<hr>
+<div id="matches"></div>
+
+{% endblock %} {% block script %}
+<script type="module" src="{% static 'scores/loadMatch.js' %}"></script>
+<script type="module" src="{% static 'scores/teamPage.js' %}"></script>
+
+{% endblock %}

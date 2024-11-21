@@ -1,0 +1,139 @@
+.body {
+    margin: 20px
+}
+
+#news_title_page {
+    text-align: center;
+    font-size: 80px;
+}
+
+#news_form_image {
+    margin-bottom: 20px;
+}
+
+#news_form_body {
+    height: calc(100vh - 400px);
+}
+
+.news_header {
+    margin: 0 auto;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    max-width: 600px;
+    animation-name: load;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.news_header>a {
+
+    font-size: 36px;
+    font-weight: 600;
+    color: black;
+}
+
+@keyframes load {
+    0% {
+        opacity: 0;
+        height: 20%;
+        line-height: 20%;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+
+    30% {
+        opacity: 0;
+        height: 20%;
+        line-height: 20%;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+
+    100% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+
+.news_header>p {
+    font-style: italic;
+    color: gray;
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.news_header>img {
+    width: 100%;
+    max-height: 100%;
+}
+
+#end_page {
+    display: none;
+}
+
+
+#news_page>h1 {
+    text-align: center;
+}
+
+
+#team_page {
+    display: flex;
+
+}
+
+#team_page>img {
+    height: 100px;
+    width: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.match_outcome {
+    border: 1px solid black;
+    border-radius: 10px;
+
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 60px;
+    width: 400px;
+}
+
+.match_outcome_container {
+
+    display: flex;
+
+}
+
+.match_outcome_container>div {
+    margin: 5px 0px;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.match_outcome_container:hover {
+    cursor: pointer;
+}
+
+.match_outcome_container>img {
+    margin: 5px auto;
+    width: 50px;
+    height: 50px;
+}
+
+#match_date {
+    text-align: center;
+    color: gray;
+}
+
+button[disabled] {
+    cursor: default !important;
+}
