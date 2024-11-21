@@ -57,6 +57,7 @@ Utilized api from https://www.football-data.org to populate my database. Created
 
 ## How to run
 Type ```python manage.py runserver```. Important: 
+* Install packages from requirements.txt
 * Use provided database or populate yours with custom commands.
 * In order for images to display you have to have internet connection.
 
